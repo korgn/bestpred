@@ -1,7 +1,7 @@
 import telebot
 
-TOKEN = '<insert_your_token_here>'
-admin_id = <insert_admin_id_here>
+TOKEN = '6286901568:AAFzrvo_RZ9sr8VL4rnflrYn_0k1juTvd9o'
+admin_id = 1149042468
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -74,3 +74,4 @@ def handle_message(message):
         bot.send_video(admin_id, message.video.file_id)
 
 bot.polling(none_stop=True)
+
