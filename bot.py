@@ -1,8 +1,7 @@
 import telebot
 
-TOKEN = '6286901568:AAFzrvo_RZ9sr8VL4rnflrYn_0k1juTvd9o'
-
-admin_id = 1149042468
+TOKEN = '<insert_your_token_here>'
+admin_id = <insert_admin_id_here>
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -64,30 +63,14 @@ def handle_message(message):
     text = f'{user_info} {message.text}'
     bot.send_message(admin_id, text)
 
-@bot.message_handler(content_types=['text', 'photo', 'video'])
-def handle_message(message):
-    # If the message is from the admin, don't process it
-    if message.chat.id == admin_id:
-        return
-
-    # If the user is blocked, don't process the message
-    if message.chat.id in blocked_users:
-        return
-
-    # Build the user info string
-    user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
-
-    # If the message contains an image or video, send a message with the user info and media file
+    # If the message contains an image or video, send a separate message to the admin with user info
     if message.content_type in ['photo', 'video']:
-        text = user_info + f'\n{message.caption}' if message.caption else user_info
-        if message.content_type == 'photo':
-            bot.send_photo(admin_id, message.photo[-1].file_id, caption=text)
-        elif message.content_type == 'video':
-            bot.send_video(admin_id, message.video.file_id, caption=text)
-    else:
-        # If the message only contains text, send a message with the user info and text
-        text = user_info + f'\n{message.text}'
-        bot.send_message(admin_id, text)
+        bot.send_message(admin_id, user_info)
 
+    # Send the image or video file to the admin
+    if message.content_type == 'photo':
+        bot.send_photo(admin_id, message.photo[-1].file_id)
+    elif message.content_type == 'video':
+        bot.send_video(admin_id, message.video.file_id)
 
 bot.polling(none_stop=True)
