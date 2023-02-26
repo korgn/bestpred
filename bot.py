@@ -48,6 +48,8 @@ def handle_message(message):
     if message.chat.id in blocked_users:
         return
     # Відправлення повідомлення адміну
-    send_to_admin(message)
+    user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
+    text = f'{user_info} {message.text}'
+    bot.send_message(admin_id, text)
 
 bot.polling(none_stop=True) # запускаємо бота в постійному режимі
