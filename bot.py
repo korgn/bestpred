@@ -1,7 +1,7 @@
 import telebot
 
 TOKEN = '6286901568:AAFzrvo_RZ9sr8VL4rnflrYn_0k1juTvd9o'
-admin_id = [1380896061, 699916411]
+admin_id = [1380896061, 1149042468] #699916411
 
 bot = telebot.TeleBot(TOKEN)
 
