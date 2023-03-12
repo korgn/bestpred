@@ -8,7 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 blocked_users = []
 
 def send_to_admin(message):
-    user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
+    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
     text = f'{user_info} {message.text}'
     bot.send_message(admin_id, text)
 
@@ -16,7 +16,7 @@ def send_to_admin(message):
 def handle_ban(message):
     # Check if the user is the admin
     if message.chat.id != admin_id:
-        bot.reply_to(message, "This command is only available to administrators")
+        bot.reply_to(message, "Цю команду може виконати лише адміністратор бота.")
         return
 
     # Split the command text into parts
@@ -24,7 +24,7 @@ def handle_ban(message):
 
     if len(command_parts) < 2:
         # If no user ID is specified for blocking, send an error message
-        bot.reply_to(message, "You must specify a user ID to block")
+        bot.reply_to(message, "Укажи ID після команди ban ніби заблокувати.")
         return
 
     # Get the user ID to be blocked
@@ -35,18 +35,18 @@ def handle_ban(message):
         user = bot.get_chat(user_id)
     except telebot.apihelper.ApiException:
         # If the user is not found, send an error message
-        bot.reply_to(message, f"User with ID {user_id} not found")
+        bot.reply_to(message, f"Людину з подібним ID {user_id} не знайдено.")
         return
 
     # Add the user to the blocked users list
     blocked_users.append(user.id)
 
     # Send a message to the user about the block
-    bot.send_message(user_id, "You have been blocked by the administrator")
+    bot.send_message(user_id, "Ви були заблоковані у цьому боті.")
 
     # Send a message to the admin about the block
-    user_info = f'{user.first_name} {user.last_name} (@{user.username} [{user.id}]):'
-    bot.send_message(admin_id, f"{user_info} has been blocked")
+    user_info = f'{user.first_name} (@{user.username} [{user.id}]):'
+    bot.send_message(admin_id, f"{user_info} заблокован.")
 
 @bot.message_handler(content_types=['text', 'photo', 'video'])
 def handle_message(message):
@@ -59,7 +59,7 @@ def handle_message(message):
         return
 
     # Send a message to the admin0
-    user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
+    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
     text = f'{user_info} {message.text}'
     bot.send_message(admin_id[0], text)
 
@@ -74,7 +74,7 @@ def handle_message(message):
         bot.send_video(admin_id[0], message.video.file_id)
         
     # Send a message to the admin1
-    user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
+    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
     text = f'{user_info} {message.text}'
     bot.send_message(admin_id[1], text)
 
