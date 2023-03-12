@@ -1,7 +1,7 @@
 import telebot
 
 TOKEN = '6286901568:AAFzrvo_RZ9sr8VL4rnflrYn_0k1juTvd9o'
-admin_id = 1380896061
+admin_id = [1380896061, 699916411]
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -58,20 +58,35 @@ def handle_message(message):
     if message.chat.id in blocked_users:
         return
 
-    # Send a message to the admin
+    # Send a message to the admin0
     user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
     text = f'{user_info} {message.text}'
-    bot.send_message(admin_id, text)
+    bot.send_message(admin_id[0], text)
 
     # If the message contains an image or video, send a separate message to the admin with user info
     if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id, user_info)
+        bot.send_message(admin_id[0], user_info)
 
-    # Send the image or video file to the admin
+    # Send the image or video file to the admin0
     if message.content_type == 'photo':
-        bot.send_photo(admin_id, message.photo[-1].file_id)
+        bot.send_photo(admin_id[0], message.photo[-1].file_id)
     elif message.content_type == 'video':
-        bot.send_video(admin_id, message.video.file_id)
+        bot.send_video(admin_id[0], message.video.file_id)
+        
+    # Send a message to the admin1
+    user_info = f'{message.from_user.first_name} {message.from_user.last_name} (@{message.from_user.username} [{message.from_user.id}]):'
+    text = f'{user_info} {message.text}'
+    bot.send_message(admin_id[1], text)
+
+    # If the message contains an image or video, send a separate message to the admin with user info1
+    if message.content_type in ['photo', 'video']:
+        bot.send_message(admin_id[1], user_info)
+
+    # Send the image or video file to the admin1
+    if message.content_type == 'photo':
+        bot.send_photo(admin_id[1], message.photo[-1].file_id)
+    elif message.content_type == 'video':
+        bot.send_video(admin_id[1], message.video.file_id)
 
 bot.polling(none_stop=True)
 
