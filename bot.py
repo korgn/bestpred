@@ -52,7 +52,7 @@ def handle_ban(message):
 @bot.message_handler(content_types=['text', 'photo', 'video'])
 def handle_message(message):
     # If the message is from the admin, don't process it
-    if message.chat.id == admin_id[0] or admin_id[1]:
+    if message.chat.id == admin_id[0]:
         return
 
     # If the user is blocked, don't process the message
