@@ -15,7 +15,7 @@ def send_to_admin(message):
 @bot.message_handler(commands=['ban'])
 def handle_ban(message):
     # Check if the user is the admin
-    if message.chat.id != admin_id:
+    if message.chat.id != admin_id[0] or admin_id[1]:
         bot.reply_to(message, "Цю команду може виконати лише адміністратор бота.")
         return
 
@@ -51,7 +51,7 @@ def handle_ban(message):
 @bot.message_handler(content_types=['text', 'photo', 'video'])
 def handle_message(message):
     # If the message is from the admin, don't process it
-    if message.chat.id == admin_id:
+    if message.chat.id == admin_id[0] or admin_id[1]:
         return
 
     # If the user is blocked, don't process the message
