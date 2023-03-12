@@ -15,10 +15,7 @@ def send_to_admin(message):
 @bot.message_handler(commands=['ban'])
 def handle_ban(message):
     # Check if the user is the admin
-    if message.chat.id != admin_id[0]:
-      if massage.chat.id != admin_id[1]:
-        bot.reply_to(message, "Цю команду може виконати лише адміністратор бота.")
-        return
+  if message.chat.id == admin_id[0] or admin_id[1]:
 
     # Split the command text into parts
     command_parts = message.text.split()
@@ -48,6 +45,9 @@ def handle_ban(message):
     # Send a message to the admin about the block
     user_info = f'{user.first_name} (@{user.username} [{user.id}]):'
     bot.send_message(admin_id, f"{user_info} заблокован.")
+  else:
+    bot.reply_to(message, "Цю команду може виконати лише адміністратор бота.")
+    return
 
 @bot.message_handler(content_types=['text', 'photo', 'video'])
 def handle_message(message):
