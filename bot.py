@@ -58,7 +58,7 @@ def handle_message(message):
     # If the user is blocked, don't process the message
     if message.chat.id in blocked_users:
         return
-
+    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
     # Save the message text in a variable
     message_text = message.text
 
