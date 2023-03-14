@@ -49,7 +49,7 @@ def handle_ban(message):
     bot.reply_to(message, "Цю команду може виконати лише адміністратор бота.")
     return
 
-@bot.message_handler(func=lambda message: True)
+@bot.message_handler(content_types=['text', 'photo', 'video', 'audio', 'document'])
 def handle_message(message):
     # If the message is from the admin, don't process it
     if message.chat.id in admin_id:
