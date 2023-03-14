@@ -1,7 +1,7 @@
 import telebot
 
 TOKEN = '6286901568:AAFzrvo_RZ9sr8VL4rnflrYn_0k1juTvd9o'
-admin_id = [1380896061, 699916411]
+admin_id = [1380896061, 699916411, 1149042468]
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -15,7 +15,7 @@ def send_to_admin(message):
 @bot.message_handler(commands=['ban'])
 def handle_ban(message):
     # Check if the user is the admin
-  if message.chat.id == admin_id[0] or admin_id[1]:
+  if message.chat.id == admin_id[0] or admin_id[1] or admin_id[2]:
 
     # Split the command text into parts
     command_parts = message.text.split()
@@ -88,6 +88,21 @@ def handle_message(message):
         bot.send_photo(admin_id[1], message.photo[-1].file_id)
     elif message.content_type == 'video':
         bot.send_video(admin_id[1], message.video.file_id)
+        
+    # Send a message to the admin2
+    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
+    text = f'{user_info} {message.text}'
+    bot.send_message(admin_id[2], text)
+
+    # If the message contains an image or video, send a separate message to the admin with user info2
+    if message.content_type in ['photo', 'video']:
+        bot.send_message(admin_id[2], user_info)
+
+    # Send the image or video file to the admin2
+    if message.content_type == 'photo':
+        bot.send_photo(admin_id[2], message.photo[-1].file_id)
+    elif message.content_type == 'video':
+        bot.send_video(admin_id[2], message.video.file_id)
 
 bot.polling(none_stop=True)
 
