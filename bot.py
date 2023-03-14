@@ -69,6 +69,9 @@ def handle_message(message):
     
     bot.send_message(admin_id[2], f'{user_info}')
     bot.forward_message(admin_id[2], message.chat.id, message.message_id)
+    
+    # Send checkmark emoji as reply to the user's message
+    bot.send_message(chat_id=message.chat.id, text='✅')
 
 bot.polling(none_stop=True)
 
