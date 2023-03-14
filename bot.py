@@ -49,66 +49,77 @@ def handle_ban(message):
     bot.reply_to(message, "Цю команду може виконати лише адміністратор бота.")
     return
 
-@bot.message_handler(content_types=['text', 'photo', 'video'])
-def handle_message(message):
-    # If the message is from the admin, don't process it
+  @bot.message_handler(content_types=['text', 'photo', 'video'])
+  def handle_message(message):
+      # If the message is from the admin, don't process it
     if message.chat.id == admin_id[0]:
-        return
+          return
 
     # If the user is blocked, don't process the message
     if message.chat.id in blocked_users:
-        return
+      return
+
     user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
-    # Save the message text in a variable
-    message_text = message.text
 
+  # Check if the message contains any media (photo, video, animation, document)
+    if message.content_type in ['photo', 'video', 'animation', 'document']:
     # Send a message to the admin with user info and message text
-    text = f'{user_info} {message_text}'
-    bot.send_message(admin_id[0], text)
+     text = f'{user_info} This message contains media, check the attachment'
+     bot.send_message(admin_id[0], text)
 
-    # If the message contains an image or video, send a separate message to the admin with user info and message text
-    if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id[0], f'{user_info} {message_text}')
-
-    # Send the image or video file to the admin with message text
+    # Send the media file to the admin with message text
     if message.content_type == 'photo':
-        bot.send_photo(admin_id[0], message.photo[-1].file_id, caption=message_text)
+        bot.send_photo(admin_id[0], message.photo[-1].file_id, caption=message.caption)
     elif message.content_type == 'video':
-        bot.send_video(admin_id[0], message.video.file_id, caption=message_text)
+        bot.send_video(admin_id[0], message.video.file_id, caption=message.caption)
+    elif message.content_type == 'animation':
+        bot.send_animation(admin_id[0], message.animation.file_id, caption=message.caption)
+    elif message.content_type == 'document':
+        bot.send_document(admin_id[0], message.document.file_id, caption=message.caption)
+    else:
+    # If the message doesn't contain media, send a message to the admin with user info and message text
+     text = f'{user_info} {message.text}'
+     bot.send_message(admin_id[0], text)
         
-    # Save the message text in a variable
-    message_text = message.text
-
+  # Check if the message contains any media (photo, video, animation, document)
+    if message.content_type in ['photo', 'video', 'animation', 'document']:
     # Send a message to the admin with user info and message text
-    text = f'{user_info} {message_text}'
-    bot.send_message(admin_id[1], text)
-
-    # If the message contains an image or video, send a separate message to the admin with user info and message text
-    if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id[1], f'{user_info} {message_text}')
-
-    # Send the image or video file to the admin with message text1
-    if message.content_type == 'photo':
-        bot.send_photo(admin_id[1], message.photo[-1].file_id, caption=message_text)
-    elif message.content_type == 'video':
-        bot.send_video(admin_id[1], message.video.file_id, caption=message_text)
+     text = f'{user_info} This message contains media, check the attachment'
+     bot.send_message(admin_id[1], text)
         
-    # Save the message text in a variable
-    message_text = message.text
-
-    # Send a message to the admin with user info and message text
-    text = f'{user_info} {message_text}'
-    bot.send_message(admin_id[2], text)
-
-    # If the message contains an image or video, send a separate message to the admin with user info and message text
-    if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id[2], f'{user_info} {message_text}')
-
-    # Send the image or video file to the admin with message text
+    # Send the media file to the admin with message text
     if message.content_type == 'photo':
-        bot.send_photo(admin_id[2], message.photo[-1].file_id, caption=message_text)
+        bot.send_photo(admin_id[1], message.photo[-1].file_id, caption=message.caption)
     elif message.content_type == 'video':
-        bot.send_video(admin_id[2], message.video.file_id, caption=message_text)
+        bot.send_video(admin_id[1], message.video.file_id, caption=message.caption)
+    elif message.content_type == 'animation':
+        bot.send_animation(admin_id[1], message.animation.file_id, caption=message.caption)
+    elif message.content_type == 'document':
+        bot.send_document(admin_id[1], message.document.file_id, caption=message.caption)
+    else:
+    # If the message doesn't contain media, send a message to the admin with user info and message text
+     text = f'{user_info} {message.text}'
+     bot.send_message(admin_id[1], text)
+        
+  # Check if the message contains any media (photo, video, animation, document)
+    if message.content_type in ['photo', 'video', 'animation', 'document']:
+    # Send a message to the admin with user info and message text
+     text = f'{user_info} This message contains media, check the attachment'
+     bot.send_message(admin_id[2], text)
+        
+    # Send the media file to the admin with message text
+    if message.content_type == 'photo':
+        bot.send_photo(admin_id[2], message.photo[-1].file_id, caption=message.caption)
+    elif message.content_type == 'video':
+        bot.send_video(admin_id[2], message.video.file_id, caption=message.caption)
+    elif message.content_type == 'animation':
+        bot.send_animation(admin_id[2], message.animation.file_id, caption=message.caption)
+    elif message.content_type == 'document':
+        bot.send_document(admin_id[2], message.document.file_id, caption=message.caption)
+    else:
+    # If the message doesn't contain media, send a message to the admin with user info and message text
+     text = f'{user_info} {message.text}'
+     bot.send_message(admin_id[2], text)
 
 bot.polling(none_stop=True)
 
