@@ -59,50 +59,56 @@ def handle_message(message):
     if message.chat.id in blocked_users:
         return
 
-    # Send a message to the admin0
-    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
-    text = f'{user_info} {message.text}'
+    # Save the message text in a variable
+    message_text = message.text
+
+    # Send a message to the admin with user info and message text
+    text = f'{user_info} {message_text}'
     bot.send_message(admin_id[0], text)
 
-    # If the message contains an image or video, send a separate message to the admin with user info
+    # If the message contains an image or video, send a separate message to the admin with user info and message text
     if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id[0], user_info)
+        bot.send_message(admin_id[0], f'{user_info} {message_text}')
 
-    # Send the image or video file to the admin0
+    # Send the image or video file to the admin with message text
     if message.content_type == 'photo':
-        bot.send_photo(admin_id[0], message.photo[-1].file_id)
+        bot.send_photo(admin_id[0], message.photo[-1].file_id, caption=message_text)
     elif message.content_type == 'video':
-        bot.send_video(admin_id[0], message.video.file_id)
+        bot.send_video(admin_id[0], message.video.file_id, caption=message_text)
         
-    # Send a message to the admin1
-    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
-    text = f'{user_info} {message.text}'
+    # Save the message text in a variable
+    message_text = message.text
+
+    # Send a message to the admin with user info and message text
+    text = f'{user_info} {message_text}'
     bot.send_message(admin_id[1], text)
 
-    # If the message contains an image or video, send a separate message to the admin with user info1
+    # If the message contains an image or video, send a separate message to the admin with user info and message text
     if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id[1], user_info)
+        bot.send_message(admin_id[1], f'{user_info} {message_text}')
 
-    # Send the image or video file to the admin1
+    # Send the image or video file to the admin with message text1
     if message.content_type == 'photo':
-        bot.send_photo(admin_id[1], message.photo[-1].file_id)
+        bot.send_photo(admin_id[1], message.photo[-1].file_id, caption=message_text)
     elif message.content_type == 'video':
-        bot.send_video(admin_id[1], message.video.file_id)
+        bot.send_video(admin_id[1], message.video.file_id, caption=message_text)
         
-    # Send a message to the admin2
-    user_info = f'{message.from_user.first_name} (@{message.from_user.username} [{message.from_user.id}]):'
-    text = f'{user_info} {message.text}'
+    # Save the message text in a variable
+    message_text = message.text
+
+    # Send a message to the admin with user info and message text
+    text = f'{user_info} {message_text}'
     bot.send_message(admin_id[2], text)
 
-    # If the message contains an image or video, send a separate message to the admin with user info2
+    # If the message contains an image or video, send a separate message to the admin with user info and message text
     if message.content_type in ['photo', 'video']:
-        bot.send_message(admin_id[2], user_info)
+        bot.send_message(admin_id[2], f'{user_info} {message_text}')
 
-    # Send the image or video file to the admin2
+    # Send the image or video file to the admin with message text
     if message.content_type == 'photo':
-        bot.send_photo(admin_id[2], message.photo[-1].file_id)
+        bot.send_photo(admin_id[2], message.photo[-1].file_id, caption=message_text)
     elif message.content_type == 'video':
-        bot.send_video(admin_id[2], message.video.file_id)
+        bot.send_video(admin_id[2], message.video.file_id, caption=message_text)
 
 bot.polling(none_stop=True)
 
